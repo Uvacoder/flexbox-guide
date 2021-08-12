@@ -2,20 +2,20 @@ import React from 'react';
 import Styles from '../App.module.css';
 
 function FlexContainer(props) {
-    const dynamicStyles = {
-        width: "100%",
-        display: "flex",
-        flex: "1",
-        backgroundColor: "#ffebc7"
-    }
-    Object.keys(props.attributes).map(key => {
-        console.log(key + " : " + props.attributes[key])
+    const dynamicStyles = {}
+    Object.keys(props.attributes).forEach(key => {
+        // console.log(key + " : " + props.attributes[key])
         dynamicStyles[`${key}`] = props.attributes[key]
     })
-    console.log("heights", props.heights)
+    var item = [];
+    for (var i = 0; i < props.heightArray.length; i++) {
+        console.log(props.heightArray[i])
+        item.push(<div key={i} className={Styles.singleItem} style={{ height: (props.height === "unset" ? "unset" : `${props.heightArray[i]}px`) }}>{i + 1}</div>);
+    }
+    // console.log(item)
     return (
         <div style={dynamicStyles} className={Styles.hoverStyle}>
-            {props.heights.map((heights, index) => <div key={index} style={{ height: `${heights}px`, display: "flex", justifyContent: "center", alignItems: "flex-start", width: "60px", margin: "0.5px", backgroundColor: '#ffa500', fontSize: "18px", fontWeight: "bold", color: "#fff" }}>{index + 1}</div>)}
+            {item}
         </div>
     );
 }
